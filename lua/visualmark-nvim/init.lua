@@ -1,10 +1,12 @@
+local marks_ns = nil;
+
 local function enable()
-    vim.api.nvim_buf_set_virtual_text(0, 0, 5,{{ "haha", "WarningMsg"}}, {})
+    marks_ns = vim.api.nvim_buf_set_virtual_text(0, 0, 5,{{ "haha", "WarningMsg"}}, {})
     print('haha testshadsdsa')
 end
 
 local function disable()
-    vim.api.nvim_buf_clear_namespace(0, 0, 0,15)
+    vim.api.nvim_buf_clear_namespace(0, marks_ns, 0,15)
     print('haha disable')
 end
 
