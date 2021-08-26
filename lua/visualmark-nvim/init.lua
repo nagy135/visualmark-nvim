@@ -10,12 +10,15 @@ function M:enable()
     end
 
     for k,v in pairs(vim.fn.getmarklist("%")) do
-        local mark_name = v['mark']
-        local line_num = v['pos'][2] - 1
-        if self.marks_ns == nil then
-            self.marks_ns = vim.api.nvim_buf_set_virtual_text(0, 0, line_num,{{ mark_name, "WarningMsg"}}, {})
-        else
-            vim.api.nvim_buf_set_virtual_text(0, self.marks_ns, line_num,{{ mark_name, "WarningMsg"}}, {})
+        local mark_name_label = v['mark']
+        local mark_name = string.sub(mark_name_label, 2)
+        if string.match(mark_name, "%w") then
+            local line_num = v['pos'][2] - 1
+            if self.marks_ns == nil then
+                self.marks_ns = vim.api.nvim_buf_set_virtual_text(0, 0, line_num,{{ mark_name_label, "WarningMsg"}}, {})
+            else
+                vim.api.nvim_buf_set_virtual_text(0, self.marks_ns, line_num,{{ mark_name_label, "WarningMsg"}}, {})
+            end
         end
     end
 end
